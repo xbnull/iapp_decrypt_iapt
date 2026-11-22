@@ -1,0 +1,4 @@
+-keep class top.niunaijun.blackbox.** { *; }
+-keep class com.iapt.client.sandbox.** { *; }
+-dontwarn org.jf.**
+-dontwarn com.google.common.**
