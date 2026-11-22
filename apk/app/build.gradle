@@ -1,0 +1,48 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.iapt.client'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.iapt.client'
+        minSdk 24
+        targetSdk 34
+        versionCode 23
+        versionName '2.3'
+
+        // 保持单 DEX，兼容传统 Xposed 入口加载；若超出 64K，构建会直接报错而不是运行时闪退。
+        multiDexEnabled false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        resources {
+            excludes += ['META-INF/DEPENDENCIES', 'META-INF/LICENSE*', 'META-INF/NOTICE*']
+        }
+    }
+
+    buildTypes {
+        debug {
+            // AndroidIDE 会给可调试变体自动注入 LogSender。关闭 debuggable 可避免该组件进入 APK。
+            // Manifest 仍声明 FOREGROUND_SERVICE_DATA_SYNC，兼容某些 AndroidIDE 版本仍然注入的情况。
+            debuggable false
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    // 只在编译 Hook 入口时使用；绝不能打进 APK，也不能由普通应用启动路径引用。
+    compileOnly files('libs/xposed-api-stubs.jar')
+}
