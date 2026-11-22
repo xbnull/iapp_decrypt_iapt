@@ -1,0 +1,14 @@
+-- lib/*.so 上传即扣额度：支持 0.01 小数额度
+-- 扣费规则：APK 内 lib/*.so 未压缩总大小，1KB = 0.01 额度，上传创建任务即扣，失败不退。
+
+ALTER TABLE subscriptions MODIFY COLUMN daily_quota DECIMAL(20,2) NOT NULL DEFAULT 0;
+ALTER TABLE daily_quotas MODIFY COLUMN total_quota DECIMAL(20,2) NOT NULL DEFAULT 0;
+ALTER TABLE daily_quotas MODIFY COLUMN extra_quota DECIMAL(20,2) NOT NULL DEFAULT 0;
+ALTER TABLE daily_quotas MODIFY COLUMN used_quota DECIMAL(20,2) NOT NULL DEFAULT 0;
+ALTER TABLE tasks MODIFY COLUMN resource_quota_cost DECIMAL(20,2) NOT NULL DEFAULT 0 COMMENT '上传任务按 lib/*.so 大小扣除的额度，1KB=0.01，失败不退';
+ALTER TABLE tasks MODIFY COLUMN estimated_quota_cost DECIMAL(20,2) NOT NULL DEFAULT 0;
+ALTER TABLE tasks MODIFY COLUMN quota_limit DECIMAL(20,2) NOT NULL DEFAULT 0;
+ALTER TABLE tasks MODIFY COLUMN actual_quota_cost DECIMAL(20,2) NOT NULL DEFAULT 0;
+ALTER TABLE tasks MODIFY COLUMN decrypt_quota_deducted DECIMAL(20,2) NOT NULL DEFAULT 0;
+ALTER TABLE downloads MODIFY COLUMN quota_cost DECIMAL(20,2) NOT NULL DEFAULT 0;
+ALTER TABLE quota_conversions MODIFY COLUMN quota_amount DECIMAL(20,2) NOT NULL DEFAULT 0;
