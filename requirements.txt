@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+pymysql
+python-multipart
+cryptography
+celery
+redis
+DBUtils
+pycryptodome>=3.15
+unicorn>=2.0
