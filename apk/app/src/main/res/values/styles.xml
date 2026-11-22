@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="IaptAppTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:colorAccent">#6750A4</item>
+        <item name="android:navigationBarColor">#F3EDF7</item>
+        <item name="android:alertDialogTheme">@style/IaptAlertDialogTheme</item>
+    </style>
+
+    <style name="IaptAlertDialogTheme" parent="@android:style/Theme.Material.Light.Dialog.Alert">
+        <item name="android:colorAccent">#6750A4</item>
+        <item name="android:windowAnimationStyle">@style/IaptDialogAnimation</item>
+    </style>
+
+    <style name="IaptDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/iapt_dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/iapt_dialog_exit</item>
+    </style>
+</resources>
