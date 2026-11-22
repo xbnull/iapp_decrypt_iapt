@@ -1,0 +1,24 @@
+[Unit]
+Description=IAPT unified API and task worker
+After=network-online.target mysql.service mariadb.service redis.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=@APP_DIR@
+EnvironmentFile=-@APP_DIR@/.env
+Environment=PYTHONPATH=@APP_DIR@
+Environment=IAPT_FORCE_LOCAL_QUEUE=1
+Environment=USE_CELERY=0
+ExecStart=@PYTHON@ -m app.runtime_supervisor_v179
+Restart=always
+RestartSec=3
+TimeoutStartSec=45
+TimeoutStopSec=35
+KillMode=control-group
+LimitNOFILE=65535
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target
+Alias=iapt-api.service iapt-worker.service iapt-api-v136.service iapt-worker-v136.service
